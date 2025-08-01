@@ -1,0 +1,57 @@
+## Compiled files
+bin/
+obj/
+out/
+*.dll
+*.exe
+*.app
+*.pdb
+*.cache
+*.db
+*.db-shm
+*.db-wal
+
+## User-specific files
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Build results
+build/
+dist/
+publish/
+artifacts/
+
+## Dotnet-specific
+project.lock.json
+project.fragment.lock.json
+*.log
+*.vs/
+*.ncrunch*
+_ReSharper*/
+**/*.nupkg
+
+## Entity Framework
+Migrations/*Designer.cs
+Migrations/*Snapshot.cs
+Migrations/obj/
+
+## Blazor
+wwwroot/
+
+## Tailwind / Node / npm (se usado para build de CSS)
+node_modules/
+tailwind.config.js
+postcss.config.js
+package-lock.json
+pnpm-lock.yaml
+
+## Others
+.env
+secrets.json
+
+IgrejaApp.Data/appsettings.json
+IgrejaApp.Api/appsettings.json
+IgrejaApp.Api/appsettings.Development.json
