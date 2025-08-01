@@ -1,0 +1,68 @@
+﻿@if (InternalShow)
+{
+    <div
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm transition-opacity duration-300">
+        <div class="@AnimationClass bg-white w-11/12 max-w-sm p-6 rounded-2xl shadow-xl text-center space-y-4">
+            @if (!string.IsNullOrWhiteSpace(Title))
+            {
+                <h2 class="text-lg font-semibold @(IsError ? "text-red-600" : "text-zinc-800")">@Title</h2>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(Message))
+            {
+                <p class="text-sm text-zinc-700">@Message</p>
+            }
+
+            @if (ChildContent is not null)
+            {
+                @ChildContent
+            }
+
+            <button @onclick="Fechar"
+                    class="px-4 py-2 rounded-md transition text-white 
+                        @(IsError ? "bg-red-600 hover:bg-red-700" : "bg-indigo-600 hover:bg-indigo-700")">
+                Fechar
+            </button>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public string? Title { get; set; }
+    [Parameter] public string? Message { get; set; }
+    [Parameter] public bool IsError { get; set; } = false;
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+
+    private bool InternalShow { get; set; }
+    private bool _showContent = true;
+
+    private string AnimationClass => _showContent
+        ? ModalAnimations.FadeIn
+        : ModalAnimations.FadeOut;
+
+    public async Task SetShowAsync(bool value)
+    {
+        if (value)
+        {
+            InternalShow = true;
+            _showContent = true;
+            StateHasChanged();
+        }
+        else
+        {
+            _showContent = false;
+            StateHasChanged();
+            await Task.Delay(150);
+            InternalShow = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task Fechar()
+    {
+        await SetShowAsync(false);
+        await OnClose.InvokeAsync();
+    }
+
+}
