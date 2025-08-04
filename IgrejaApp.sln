@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IgrejaApp.Data", "IgrejaApp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IgrejaApp.Api", "IgrejaApp.Api\IgrejaApp.Api.csproj", "{6CD3A361-12BF-492D-BCCF-CEC7579914EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IgrejaApp.UI", "IgrejaApp.UI\IgrejaApp.UI.csproj", "{C1DC4B0A-380C-4186-922B-F55C1F0430C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,18 @@ Global
 		{6CD3A361-12BF-492D-BCCF-CEC7579914EF}.Release|x64.Build.0 = Release|Any CPU
 		{6CD3A361-12BF-492D-BCCF-CEC7579914EF}.Release|x86.ActiveCfg = Release|Any CPU
 		{6CD3A361-12BF-492D-BCCF-CEC7579914EF}.Release|x86.Build.0 = Release|Any CPU
+		{C1DC4B0A-380C-4186-922B-F55C1F0430C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1DC4B0A-380C-4186-922B-F55C1F0430C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1DC4B0A-380C-4186-922B-F55C1F0430C3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C1DC4B0A-380C-4186-922B-F55C1F0430C3}.Debug|x64.Build.0 = Debug|Any CPU
+		{C1DC4B0A-380C-4186-922B-F55C1F0430C3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C1DC4B0A-380C-4186-922B-F55C1F0430C3}.Debug|x86.Build.0 = Debug|Any CPU
+		{C1DC4B0A-380C-4186-922B-F55C1F0430C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1DC4B0A-380C-4186-922B-F55C1F0430C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1DC4B0A-380C-4186-922B-F55C1F0430C3}.Release|x64.ActiveCfg = Release|Any CPU
+		{C1DC4B0A-380C-4186-922B-F55C1F0430C3}.Release|x64.Build.0 = Release|Any CPU
+		{C1DC4B0A-380C-4186-922B-F55C1F0430C3}.Release|x86.ActiveCfg = Release|Any CPU
+		{C1DC4B0A-380C-4186-922B-F55C1F0430C3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
