@@ -33,18 +33,8 @@ project.fragment.lock.json
 _ReSharper*/
 **/*.nupkg
 
-## Entity Framework
-Migrations/*Designer.cs
-Migrations/*Snapshot.cs
-Migrations/obj/
-
-## Blazor
-wwwroot/
-
 ## Tailwind / Node / npm (se usado para build de CSS)
 node_modules/
-tailwind.config.js
-postcss.config.js
 package-lock.json
 pnpm-lock.yaml
 
