@@ -1,4 +1,4 @@
-﻿namespace IgrejaApp.Domain.DTOs.Responses;
+﻿namespace IgrejaApp.Domain.DTOs.Responses.Secretaria.Membros;
 
 public class NomesMembrosResponse
 {

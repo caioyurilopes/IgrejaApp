@@ -1,0 +1,394 @@
+﻿@page "/secretaria/membros/cadastrar"
+@using IgrejaApp.Domain.DTOs.Responses.Secretaria.Membros
+@layout MainLayout
+
+@inject IMembrosService MembrosService
+@inject ICepService CepService
+
+<PageTitle>Cadastrar novo membro</PageTitle>
+
+<div class="max-w-3xl mx-auto bg-zinc-900 p-4 rounded-xl shadow space-y-6">
+    <h2 class="text-xl font-semibold text-white">Dados pessoais</h2>
+    <div class="grid md:grid-cols-2 gap-4">
+        <div>
+            <label class="block text-sm font-medium text-zinc-300">Nome completo:</label>
+            <InputText class="@Classes.InputCadastroMembro" @bind-Value="_usuario.NomeCompleto" type="text"
+                       placeholder="Ex: José Pedro"/>
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-zinc-300">CPF:</label>
+            <input id="cpfCadastroMembro"
+                   maxlength="14"
+                   type="text"
+                   placeholder="999.999.999-99"
+                   class="@Classes.InputCadastroMembro"
+                   value="@_cpfMascara"
+                   @oninput="@OnCpfInput"
+            />
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-zinc-300">Telefone:</label>
+            <input id="telefoneCadastroMembro"
+                   maxlength="16"
+                   type="tel"
+                   placeholder="(99) 9 9999-9999"
+                   class="@Classes.InputCadastroMembro"
+                   value="@_telefoneMascara"
+                   @oninput="@OnTelefoneInput"
+            />
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-zinc-300">Data de nascimento:</label>
+            <InputDate class="@Classes.InputCadastroMembro" @bind-Value="_usuario.DataNascimento"/>
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-zinc-300">Gênero:</label>
+            <InputSelect class="@Classes.InputCadastroMembro" @bind-Value="_usuario.Genero">
+                <option disabled selected>Selecione</option>
+                @foreach (var genero in Enum.GetValues<Genero>())
+                {
+                    <option value="@genero">@genero</option>
+                }
+            </InputSelect>
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-zinc-300">Meio admissão</label>
+            <InputText class="@Classes.InputCadastroMembro" @bind-Value="_usuario.MeioAdmissao" type="text"
+                       placeholder="Ex: Aplicativo"/>
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-zinc-300">Naturalidade</label>
+            <InputText class="@Classes.InputCadastroMembro" @bind-Value="_usuario.Naturalidade" type="text"
+                       placeholder="Ex: Brasileiro"/>
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-zinc-300">Estado Civil:</label>
+            <InputSelect class="@Classes.InputCadastroMembro" @bind-Value="_usuario.EstadoCivil"
+                         @onchange="HandleEstadoCivilChange">
+                <option disabled selected>Selecione</option>
+                @foreach (var estado in Enum.GetValues<EstadoCivil>())
+                {
+                    <option value="@estado">@estado.ToDisplay()</option>
+                }
+            </InputSelect>
+        </div>
+    </div>
+
+    @if (_usuario.EstadoCivil == EstadoCivil.Casado)
+    {
+        <h2 class="text-xl font-semibold text-white pt-6">Cônjuge</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-zinc-300">Selecionar membro existente (opcional):</label>
+                <InputSelect class="@Classes.InputCadastroMembro" @bind-Value="_usuario.ConjugeId">
+                    <option value=""></option>
+                    @if (_membros != null)
+                    {
+                        foreach (var membro in _membros)
+                        {
+                            <option value="@membro.Id">@membro.Nome</option>
+                        }
+                    }
+                </InputSelect>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-zinc-300">Nome do conjugê (manual):</label>
+                <InputText class="@Classes.InputCadastroMembro" @bind-Value="_usuario.NomeConjuge" type="text"
+                           placeholder="Ex: Maria Silva"/>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-zinc-300">Data de casamento:</label>
+                <InputDate class="@Classes.InputCadastroMembro" @bind-Value="_usuario.DataCasamento"/>
+            </div>
+        </div>
+    }
+
+    <h2 class="text-xl font-semibold text-white pt-6">Endereço</h2>
+    <div class="grid md:grid-cols-3 gap-4">
+        <div>
+            <label class="block text-sm font-medium text-zinc-300">CEP:</label>
+            <input id="cepCadastroMembro"
+                   maxlength="9"
+                   type="text"
+                   placeholder="99999-999"
+                   class="@Classes.InputCadastroMembro"
+                   value="@_cepMascara"
+                   @oninput="@(e => OnCepInput(e))"
+            />
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-zinc-300">Estado:</label>
+            <InputText class="@Classes.InputCadastroMembro" @bind-Value="_usuario.Estado" type="text"
+                       placeholder="Ex: Rio Grande do Sul"/>
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-zinc-300">UF:</label>
+            <InputText class="@Classes.InputCadastroMembro" @bind-Value="_usuario.Uf" type="text" placeholder="Ex: RS"/>
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-zinc-300">Bairro:</label>
+            <InputText class="@Classes.InputCadastroMembro" @bind-Value="_usuario.Bairro" type="text"
+                       placeholder="Ex: Santo Antônio"/>
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-zinc-300">Logradouro:</label>
+            <InputText class="@Classes.InputCadastroMembro" @bind-Value="_usuario.Logradouro" type="text"
+                       placeholder="Ex: Santa Cruz do Sul"/>
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-zinc-300">Número:</label>
+            <InputText class="@Classes.InputCadastroMembro" @bind-Value="_usuario.Numero" type="number"
+                       placeholder="697"/>
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-zinc-300">Complemento:</label>
+            <InputText class="@Classes.InputCadastroMembro" @bind-Value="_usuario.Complemento" type="text"
+                       placeholder="Ex: Em fronte a ..."/>
+        </div>
+    </div>
+
+    <h2 class="text-xl font-semibold text-white pt-6">Batismo</h2>
+    <div class="grid md:grid-cols-2 gap-4">
+        <div>
+            <label class="block text-sm font-medium text-zinc-300">Data de batismo:</label>
+            <InputDate class="@Classes.InputCadastroMembro" @bind-Value="_usuario.Batismo!.Data"/>
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-zinc-300">Pastor batizando:</label>
+            <div class="flex items-center gap-2 mb-1">
+                <label class="text-sm text-zinc-300">Informar manualmente</label>
+                <CheckBox @bind-Value="_informarPastorBatismo"/>
+            </div>
+
+            @if (!_informarPastorBatismo)
+            {
+                <InputSelect class="@Classes.InputCadastroMembro" @bind-Value="_usuario.Batismo.PastorId">
+                    <option value="">Selecione um membro</option>
+                    @if (_membros is not null)
+                        foreach (var membro in _membros)
+                        {
+                            <option value="@membro.Id">@membro.Nome</option>
+                        }
+                </InputSelect>
+            }
+            else
+            {
+                <InputText class="@Classes.InputCadastroMembro" @bind-Value="_usuario.Batismo.PastorNomeManual"
+                           type="text" placeholder="Ex: Pastor João da Silva"/>
+            }
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-zinc-300">Igreja de batismo:</label>
+            <InputText class="@Classes.InputCadastroMembro" @bind-Value="_usuario.Batismo.Igreja" type="text"
+                       placeholder="Ex: Igreja Batista ..."/>
+        </div>
+    </div>
+
+    <h2 class="text-xl font-semibold text-white pt-6">Informações familiares</h2>
+    <div class="grid md:grid-cols-2 gap-4">
+        <div>
+            <label class="block text-sm font-medium text-zinc-300">Nome do pai:</label>
+            <InputText class="@Classes.InputCadastroMembro" @bind-Value="_usuario.NomePai" type="text"
+                       placeholder="Ex: João da Silva"/>
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-zinc-300">Nome da mãe:</label>
+            <InputText class="@Classes.InputCadastroMembro" @bind-Value="_usuario.NomeMae" type="text"
+                       placeholder="Ex: Maria Silva"/>
+        </div>
+    </div>
+
+    <div class="pt-6">
+        <button class="w-full bg-yellow-500 text-black font-semibold py-2 rounded-xl hover:bg-yellow-400 transition"
+                @onclick="Cadastrar">
+            Salvar Membro
+        </button>
+    </div>
+
+    <Modal @ref="_modalCepErro"
+           Title="CEP não encontrado"
+           Message="Não encontramos esse CEP, por favor, verifique ou escreva os dados normalmente."
+           IsError="false" OnClose="CloseCepModal"
+    />
+
+    <Modal @ref="_modalCadastroMembro"
+           Title="Membro cadastrado com sucesso"
+           Message="Esse novo membro foi cadastrado com sucesso!"
+           IsError="false" OnClose="CloseCadastroMembroModal"/>
+</div>
+
+@code {
+
+    private readonly Usuario _usuario = new()
+    {
+        TipoUsuario = TipoUsuario.Membro,
+        DataNascimento = DateTime.Today,
+        DataCasamento = DateTime.Today,
+        DataAdmissao = DateTime.Today,
+        Batismo = new Batismo
+        {
+            Data = DateTime.Today
+        }
+    };
+
+    private string _telefoneMascara = string.Empty;
+    private string _cepMascara = string.Empty;
+    private string _cpfMascara = string.Empty;
+    private bool _informarPastorBatismo;
+    private bool _informarPastorProfissao;
+    private Modal? _modalCepErro;
+    private Modal? _modalCadastroMembro;
+    private List<NomesMembrosResponse>? _membros = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _membros = await MembrosService.GetAllNomesMembrosAsync();
+    }
+
+    private async Task Cadastrar()
+    {
+        try
+        {
+            CadastrarMembroRequest request = new CadastrarMembroRequest
+            {
+                NomeCompleto = _usuario.NomeCompleto,
+                Cpf = _usuario.Cpf,
+                Cep = _usuario.Cep,
+                Logradouro = _usuario.Logradouro,
+                Complemento = _usuario.Complemento,
+                Bairro = _usuario.Bairro,
+                Uf = _usuario.Uf,
+                Estado = _usuario.Estado,
+                Numero = _usuario.Numero,
+                Telefone = _usuario.Telefone,
+                DataNascimento = _usuario.DataNascimento,
+                Naturalidade = _usuario.Naturalidade,
+                Genero = _usuario.Genero,
+                EstadoCivil = _usuario.EstadoCivil,
+                TipoUsuario = _usuario.TipoUsuario,
+
+                ConjugeId = _usuario.ConjugeId,
+                NomeConjuge = _usuario.NomeConjuge,
+                DataCasamento = _usuario.DataCasamento,
+
+                NomePai = _usuario.NomePai,
+                NomeMae = _usuario.NomeMae,
+
+                DataBatismo = _usuario.Batismo?.Data,
+                IgrejaBatismo = _usuario.Batismo?.Igreja,
+                PastorBatismoId = _usuario.Batismo?.PastorId,
+                PastorBatismoNomeManual = _usuario.Batismo?.PastorNomeManual,
+
+                DataAdmissao = _usuario.DataAdmissao,
+                MeioAdmissao = _usuario.MeioAdmissao,
+
+                Celular = _usuario.Celular,
+                Senha = _usuario.Senha
+            };
+
+            await MembrosService.CadastrarMembroAsync(request);
+            _modalCadastroMembro?.SetShowAsync(true);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao cadastrar membro: {ex.Message}");
+        }
+    }
+
+    private async Task OnCepInput(ChangeEventArgs e)
+    {
+        string valor = e.Value?.ToString() ?? "";
+        _cepMascara = CepFormatter.AplicarMascara(valor);
+        _usuario.Cep = CepFormatter.RemoverMascara(valor);
+
+        if (_usuario.Cep.Length >= 8)
+        {
+            CepResponse? endereco = await CepService.GetEnderecoByCepAsync(_usuario.Cep);
+            if (endereco is not null)
+            {
+                _usuario.Logradouro = endereco.Logradouro ?? "";
+                _usuario.Bairro = endereco.Bairro ?? "";
+                _usuario.Estado = endereco.Localidade ?? "";
+                _usuario.Uf = endereco.Uf ?? "";
+                _usuario.Complemento = endereco.Complemento ?? "";
+            }
+            else if (_modalCepErro is not null)
+                await _modalCepErro.SetShowAsync(true);
+        }
+    }
+
+    private void HandleEstadoCivilChange(ChangeEventArgs e)
+    {
+        if (Enum.TryParse<EstadoCivil>(e.Value?.ToString(), out var estadoCivil))
+        {
+            _usuario.EstadoCivil = estadoCivil;
+        }
+    }
+
+    private void OnTelefoneInput(ChangeEventArgs e)
+    {
+        string valor = e.Value?.ToString() ?? "";
+        _telefoneMascara = CelularFormatter.AplicarMascara(valor);
+        _usuario.Telefone = CelularFormatter.RemoverMascara(valor);
+    }
+
+    private void OnCpfInput(ChangeEventArgs e)
+    {
+        string valor = e.Value?.ToString() ?? "";
+        _cpfMascara = CpfCnpjFormatter.AplicarMascara(valor);
+        _usuario.Cpf = CpfCnpjFormatter.RemoverMascara(valor);
+    }
+
+    private void CloseCepModal()
+    {
+        _cepMascara = string.Empty;
+        _usuario.Cep = string.Empty;
+        _usuario.Estado = string.Empty;
+        _usuario.Uf = string.Empty;
+        _usuario.Bairro = string.Empty;
+        _usuario.Logradouro = string.Empty;
+        _usuario.Numero = string.Empty;
+        _usuario.Complemento = string.Empty;
+    }
+
+    private void CloseCadastroMembroModal()
+    {
+        _usuario.NomeCompleto = string.Empty;
+        _usuario.Cpf = string.Empty;
+        _usuario.Cep = string.Empty;
+        _usuario.Logradouro = string.Empty;
+        _usuario.Complemento = string.Empty;
+        _usuario.Bairro = string.Empty;
+        _usuario.Uf = string.Empty;
+        _usuario.Estado = string.Empty;
+        _usuario.Numero = string.Empty;
+        _usuario.Telefone = string.Empty;
+        _usuario.DataNascimento = DateTime.Today;
+        _usuario.Naturalidade = string.Empty;
+        _usuario.Genero = default;
+        _usuario.EstadoCivil = default;
+        _usuario.TipoUsuario = TipoUsuario.Membro;
+        _usuario.ConjugeId = null;
+        _usuario.NomeConjuge = string.Empty;
+        _usuario.DataCasamento = DateTime.Today;
+        _usuario.NomePai = string.Empty;
+        _usuario.NomeMae = string.Empty;
+        _usuario.DataAdmissao = DateTime.Today;
+        _usuario.MeioAdmissao = string.Empty;
+        _usuario.Celular = string.Empty;
+        _usuario.Senha = string.Empty;
+        _usuario.Batismo = new Batismo
+        {
+            Data = DateTime.Today,
+            Igreja = string.Empty,
+            PastorId = null,
+            PastorNomeManual = string.Empty
+        };
+        _cpfMascara = string.Empty;
+        _telefoneMascara = string.Empty;
+        _cepMascara = string.Empty;
+        _informarPastorBatismo = false;
+        _informarPastorProfissao = false;
+    }
+
+}

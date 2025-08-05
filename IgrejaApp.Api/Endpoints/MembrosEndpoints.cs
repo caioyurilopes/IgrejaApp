@@ -1,5 +1,6 @@
 ﻿using IgrejaApp.Domain.DTOs.Requests.Secretaria.Membros;
 using IgrejaApp.Domain.DTOs.Responses;
+using IgrejaApp.Domain.DTOs.Responses.Secretaria.Membros;
 using IgrejaApp.Domain.Interfaces;
 
 namespace IgrejaApp.Api.Endpoints;

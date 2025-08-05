@@ -7,7 +7,7 @@ public static class AppExtensions
 {
     public static IEndpointRouteBuilder MapEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGroup("v1")
+        app.MapGroup("v1/auth")
             .MapAuthEndpoints()
             .AllowAnonymous()
             .AddEndpointFilter<ApiKeyAuthorizationFilter>();

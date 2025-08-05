@@ -1,5 +1,6 @@
 ﻿using IgrejaApp.Domain.DTOs.Requests.Secretaria.Membros;
 using IgrejaApp.Domain.DTOs.Responses;
+using IgrejaApp.Domain.DTOs.Responses.Secretaria.Membros;
 using IgrejaApp.Domain.Interfaces;
 using IgrejaApp.UI.Utils;
 using Microsoft.Extensions.Options;
@@ -18,6 +19,12 @@ public class MembrosService : ServiceBase, IMembrosService
     {
         string url = _url + "/nomes";
         return (await GetAsync<List<NomesMembrosResponse>>(url));
+    }
+
+    public async Task<List<MembrosResponse>> GetAllAsync()
+    {
+        // TODO: Request para pegar todos os usuários //
+        return new();
     }
 
     public async Task CadastrarMembroAsync(CadastrarMembroRequest request)

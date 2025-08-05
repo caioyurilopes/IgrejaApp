@@ -18,19 +18,16 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="tailwind.config.js">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Update="wwwroot/css/themes.css">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
+        <Folder Include="wwwroot\css\"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\IgrejaApp.Domain\IgrejaApp.Domain.csproj" />
+        <Content Update="wwwroot\appsettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>
-      <_ContentIncludedByDefault Remove="wwwroot\sample-data\weather.json" />
+        <ProjectReference Include="..\IgrejaApp.Domain\IgrejaApp.Domain.csproj"/>
     </ItemGroup>
 </Project>

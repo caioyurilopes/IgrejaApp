@@ -7,7 +7,7 @@ public class ApiKeyAuthorizationFilter : IEndpointFilter
         var request = context.HttpContext.Request;
 
         if (!request.Headers.TryGetValue("X-Api-Key", out var extractedApiKey) ||
-            extractedApiKey != "minha-chave-secreta")
+            extractedApiKey != "Ltfof@192")
         {
             return Results.Unauthorized();
         }

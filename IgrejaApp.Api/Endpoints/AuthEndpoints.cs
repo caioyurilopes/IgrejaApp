@@ -9,7 +9,7 @@ public static class AuthEndpoints
 {
     public static RouteGroupBuilder MapAuthEndpoints(this RouteGroupBuilder group)
     {
-        group.MapPost("/auth/login", LoginAsync);
+        group.MapPost("/login", LoginAsync);
         return group;
     }
 
