@@ -21,10 +21,9 @@ public class MembrosService : ServiceBase, IMembrosService
         return (await GetAsync<List<NomesMembrosResponse>>(url));
     }
 
-    public async Task<List<MembrosResponse>> GetAllAsync()
+    public async Task<List<MembrosResponse>?> GetAllAsync()
     {
-        // TODO: Request para pegar todos os usuários //
-        return new();
+        return await GetAsync<List<MembrosResponse>>(_url);
     }
 
     public async Task CadastrarMembroAsync(CadastrarMembroRequest request)

@@ -1,7 +1,9 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager Navigation
 
-<div class="flex flex-col min-h-screen bg-zinc-900 text-white">
+<HeadOutlet/>
+
+<div class="flex flex-col min-h-screen bg-zinc-900 text-white animate-fade-in">
     <!-- Cabeçalho -->
     <header class="flex items-center justify-between px-4 py-3 bg-zinc-950 shadow-md">
         <div class="w-10">
@@ -34,9 +36,14 @@
     <main class="flex-1 overflow-y-auto px-4 py-2">
         @if (!IsHomePage)
         {
-            <h1 class="text-xl font-semibold mb-4">@PageTitle</h1>
+            <h1 class="text-xl font-semibold mb-4">
+                <PageTitle/>
+            </h1>
         }
-        @Body
+
+        <div class="animate-fade-in" @key="Navigation.Uri">
+            @Body
+        </div>
     </main>
 
     <!-- Rodapé fixo com navegação -->
@@ -53,15 +60,15 @@
 </div>
 
 @code {
+
     private bool IsHomePage => Navigation.Uri.EndsWith("/home");
-    private string PageTitle => GetPageTitle();
-
-    private string GetPageTitle()
-    {
-        var uri = Navigation.Uri.ToLower();
-        if (uri.Contains("/secretaria/membros/cadastrar")) return "Cadastrar novo membro";
-        if (uri.Contains("configuracoes")) return "Configurações";
-        return "Página";
-    }
-
+    // private string PageTitle => GetPageTitle();
+    //
+    // private string GetPageTitle()
+    // {
+    //     var uri = Navigation.Uri.ToLower();
+    //     if (uri.Contains("/secretaria/membros/cadastrar")) return "Cadastrar novo membro";
+    //     if (uri.Contains("/secretaria/membros/consultar")) return "Consultar membros";
+    //     return "Página";
+    // }
 }

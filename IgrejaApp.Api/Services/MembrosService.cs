@@ -14,7 +14,7 @@ public class MembrosService(IUsuarioRepository usuarioRepository) : IMembrosServ
         return await usuarioRepository.GetAllNomesMembrosAsync();
     }
 
-    public async Task<List<MembrosResponse>> GetAllAsync()
+    public async Task<List<MembrosResponse>?> GetAllAsync()
     {
         return await usuarioRepository.GetAllAsync();
     }

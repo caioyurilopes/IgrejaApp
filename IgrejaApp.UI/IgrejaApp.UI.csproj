@@ -9,16 +9,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.18"/>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.18" PrivateAssets="all"/>
+        <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.18" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.18" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup>
-        <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js"/>
+        <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="wwwroot\css\"/>
+        <Folder Include="wwwroot\css\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -28,6 +29,15 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\IgrejaApp.Domain\IgrejaApp.Domain.csproj"/>
+        <ProjectReference Include="..\IgrejaApp.Domain\IgrejaApp.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="dist\web.config" />
+      <_ContentIncludedByDefault Remove="dist\emcc-props.json" />
+      <_ContentIncludedByDefault Remove="dist\IgrejaApp.UI.staticwebassets.endpoints.json" />
+      <_ContentIncludedByDefault Remove="dist\package-lock.json" />
+      <_ContentIncludedByDefault Remove="dist\wwwroot\IgrejaApp\appsettings.json" />
+      <_ContentIncludedByDefault Remove="dist\wwwroot\IgrejaApp\_framework\blazor.boot.json" />
     </ItemGroup>
 </Project>

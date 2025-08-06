@@ -7,6 +7,6 @@ public interface IUsuarioRepository
 {
     Task<Usuario?> GetByCelularAsync(string celular);
     Task<List<NomesMembrosResponse>?> GetAllNomesMembrosAsync();
-    Task<List<MembrosResponse>> GetAllAsync();
+    Task<List<MembrosResponse>?> GetAllAsync();
     Task<Usuario> CadastrarUsuarioAsync(Usuario usuario);
 }

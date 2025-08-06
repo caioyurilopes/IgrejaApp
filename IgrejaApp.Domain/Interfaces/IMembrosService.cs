@@ -6,6 +6,6 @@ namespace IgrejaApp.Domain.Interfaces;
 public interface IMembrosService
 {
     Task<List<NomesMembrosResponse>?> GetAllNomesMembrosAsync();
-    Task<List<MembrosResponse>> GetAllAsync();
+    Task<List<MembrosResponse>?> GetAllAsync();
     Task CadastrarMembroAsync(CadastrarMembroRequest request);
 }

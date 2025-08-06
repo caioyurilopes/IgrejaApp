@@ -1,13 +1,12 @@
 ﻿@page "/secretaria/membros/cadastrar"
-@using IgrejaApp.Domain.DTOs.Responses.Secretaria.Membros
 @layout MainLayout
 
 @inject IMembrosService MembrosService
 @inject ICepService CepService
 
-<PageTitle>Cadastrar novo membro</PageTitle>
+<PageTitle>Cadastrar membros</PageTitle>
 
-<div class="max-w-3xl mx-auto bg-zinc-900 p-4 rounded-xl shadow space-y-6">
+<div class="max-w-3xl mx-auto bg-zinc-900 p-4 rounded-xl shadow space-y-6 animate-zoom-in">
     <h2 class="text-xl font-semibold text-white">Dados pessoais</h2>
     <div class="grid md:grid-cols-2 gap-4">
         <div>
@@ -23,8 +22,7 @@
                    placeholder="999.999.999-99"
                    class="@Classes.InputCadastroMembro"
                    value="@_cpfMascara"
-                   @oninput="@OnCpfInput"
-            />
+                   @oninput="@OnCpfInput"/>
         </div>
         <div>
             <label class="block text-sm font-medium text-zinc-300">Telefone:</label>

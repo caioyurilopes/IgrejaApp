@@ -9,6 +9,7 @@ public static class MembrosEndpoints
 {
     public static RouteGroupBuilder MapMembrosEndpoints(this RouteGroupBuilder group)
     {
+        group.MapGet("/", GetAllAsync);
         group.MapGet("/nomes", GetAllNomesMembrosAsync);
         group.MapPost("/", CadastrarMembroAsync);
         return group;
@@ -17,6 +18,11 @@ public static class MembrosEndpoints
     private static async Task<List<NomesMembrosResponse>?> GetAllNomesMembrosAsync(IMembrosService membrosService)
     {
         return await membrosService.GetAllNomesMembrosAsync();
+    }
+
+    private static async Task<List<MembrosResponse>?> GetAllAsync(IMembrosService membrosService)
+    {
+        return await membrosService.GetAllAsync();
     }
 
     private static async Task<IResult> CadastrarMembroAsync(CadastrarMembroRequest request,

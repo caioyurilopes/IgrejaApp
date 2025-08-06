@@ -1,0 +1,32 @@
+﻿@if (_checkingAuth)
+{
+    <p class="text-center mt-10 text-zinc-100">Verificando autenticação...</p>
+}
+else if (_isAuthenticated)
+{
+    <RouteView RouteData="@RouteData" DefaultLayout="@DefaultLayout" />
+}
+else
+{
+    <div class="flex flex-col items-center justify-center min-h-screen px-4 text-white animate-fade-in bg-zinc-900">
+        <div class="bg-zinc-800 p-8 rounded-2xl shadow-lg max-w-md w-full text-center space-y-4">
+            <div class="text-red-500 text-5xl animate-pulse">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c.828 0 1.5.672 1.5 1.5S12.828 14 12 14s-1.5-.672-1.5-1.5S11.172 11 12 11zm-6 3v4.5A2.5 2.5 0 008.5 21h7a2.5 2.5 0 002.5-2.5V14a2.5 2.5 0 00-2.5-2.5h-7A2.5 2.5 0 006 14zm6-9a3 3 0 013 3v1H9v-1a3 3 0 013-3z" />
+                </svg>
+            </div>
+
+            <h1 class="text-2xl font-bold">Acesso Negado</h1>
+            <p class="text-zinc-300">Você não está autenticado ou sua sessão expirou.</p>
+
+            <p class="text-sm text-zinc-400">
+                Redirecionando para o login em 
+                <span class="text-white font-semibold">@_seconds</span> segundos...
+            </p>
+
+            <p class="text-xs text-zinc-500 animate-pulse">
+                Se não for redirecionado, <a href="/" class="underline text-blue-400">clique aqui</a>.
+            </p>
+        </div>
+    </div>
+}

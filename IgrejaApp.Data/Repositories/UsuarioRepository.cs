@@ -22,7 +22,7 @@ public class UsuarioRepository(AppDbContext context) : IUsuarioRepository
             .ToListAsync();
     }
 
-    public async Task<List<MembrosResponse>> GetAllAsync()
+    public async Task<List<MembrosResponse>?> GetAllAsync()
     {
         return await context.Usuarios.Where(u => u.TipoUsuario != TipoUsuario.Dev).Select(u => new MembrosResponse
         {
