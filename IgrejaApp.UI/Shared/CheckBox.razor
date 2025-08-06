@@ -1,0 +1,29 @@
+﻿<label class="inline-flex items-center space-x-2 cursor-pointer select-none">
+    <input type="checkbox"
+           class="peer hidden"
+           checked="@Value"
+           @onchange="OnChange"/>
+    <div
+        class="w-5 h-5 border-2 border-gray-400 rounded-md peer-checked:bg-blue-600 peer-checked:border-blue-600 flex items-center justify-center transition-colors">
+        <svg class="w-3 h-3 text-white hidden peer-checked:block" fill="none" stroke="currentColor" stroke-width="3"
+             viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+        </svg>
+    </div>
+</label>
+
+@code{
+    [Parameter] public bool? Value { get; set; }
+    [Parameter] public EventCallback<bool> ValueChanged { get; set; }
+    [Parameter] public Expression<Func<bool>>? ValueExpression { get; set; }
+
+    private async Task OnChange(ChangeEventArgs e)
+    {
+        if (bool.TryParse(e.Value?.ToString(), out bool newValue))
+        {
+            Value = newValue;
+            await ValueChanged.InvokeAsync(newValue);
+        }
+    }
+
+}

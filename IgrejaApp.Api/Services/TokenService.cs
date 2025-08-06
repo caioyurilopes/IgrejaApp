@@ -17,6 +17,8 @@ public class TokenService(IOptions<JwtSettings> jwtSettings)
     public AuthResponse GenerateToken(Usuario user)
     {
         var now = DateTime.UtcNow;
+        var expires = now.AddMinutes(_jwt.ExpirationMinutes);
+        var notBefore = now.AddSeconds(-1);
 
         var claims = new List<Claim>
         {
@@ -39,8 +41,8 @@ public class TokenService(IOptions<JwtSettings> jwtSettings)
             issuer: _jwt.Issuer,
             audience: _jwt.Audience,
             claims: claims,
-            notBefore: now,
-            expires: now.AddMinutes(_jwt.ExpirationMinutes),
+            notBefore: notBefore,
+            expires: expires,
             signingCredentials: creds
         );
 
@@ -49,7 +51,7 @@ public class TokenService(IOptions<JwtSettings> jwtSettings)
             Token = new JwtSecurityTokenHandler().WriteToken(token),
             RefreshToken = GenerateRefreshToken(),
             IssueDate = now,
-            ExpireDate = now.AddMinutes(_jwt.ExpirationMinutes),
+            ExpireDate = expires,
             Claims = claims.Select(c => new AuthClaim { Type = c.Type, Value = c.Value }).ToList(),
             Succeeded = true
         };

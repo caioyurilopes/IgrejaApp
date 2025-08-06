@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using IgrejaApp.Domain.Interfaces;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -42,7 +43,10 @@ builder.Services.AddScoped(sp =>
 });
 
 // Registrar serviços da aplicação
+builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IStorageService, StorageService>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IMembrosService, MembrosService>();
 builder.Services.AddScoped<ICepService, CepService>();
 
