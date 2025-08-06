@@ -46,7 +46,25 @@
             </div>
 
             <div>
-                <button type="submit" class="@Classes.BtnLogin">Entrar</button>
+                <button type="submit"
+                        class="@Classes.BtnLogin disabled:opacity-50"
+                        disabled="@_isLoading">
+                    @if (_isLoading)
+                    {
+                        <svg class="animate-spin h-5 w-5 text-white mx-auto" xmlns="http://www.w3.org/2000/svg"
+                             fill="none"
+                             viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10"
+                                    stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor"
+                                  d="M4 12a8 8 0 018-8v8z"></path>
+                        </svg>
+                    }
+                    else
+                    {
+                        @:Entrar
+                    }
+                </button>
             </div>
 
             <Modal @ref="_modalErro" Title="Erro no login" Message="@_loginErro" IsError="true" OnClose="FecharErro"/>
@@ -58,12 +76,14 @@
     private readonly LoginRequest _loginRequest = new();
     private string? _loginErro = string.Empty;
     private string _celularMascara = string.Empty;
+    private bool _isLoading = false;
     private Modal? _modalErro;
 
     private async Task HandleLogin()
     {
         try
         {
+            _isLoading = true;
             _loginErro = string.Empty;
 
             AuthResponse? response = await AuthService.LoginAsync(_loginRequest);
@@ -88,6 +108,10 @@
         {
             Console.WriteLine(ex);
             throw;
+        }
+        finally
+        {
+            _isLoading = false;
         }
     }
 
