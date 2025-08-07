@@ -19,6 +19,15 @@ public class MembrosService(IUsuarioRepository usuarioRepository) : IMembrosServ
         return await usuarioRepository.GetAllAsync();
     }
 
+    public async Task<VisualizarMembroResponse?> GetByIdAsync(int id)
+    {
+        Usuario? usuario = await usuarioRepository.GetByIdAsync(id);
+        if (usuario == null) return null;
+
+        VisualizarMembroResponse response = usuario.ToResponse();
+        return response;
+    }
+
     public async Task CadastrarMembroAsync(CadastrarMembroRequest request)
     {
         Usuario usuario = request.ToEntity();

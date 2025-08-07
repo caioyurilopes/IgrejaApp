@@ -5,6 +5,9 @@
 @inject ICepService CepService
 
 <div class="max-w-3xl mx-auto bg-zinc-900 p-4 rounded-xl shadow space-y-6 animate-zoom-in">
+    <h1 class="text-2xl font-bold text-white">Cadastrar membro</h1>
+    <p class="text-zinc-400 text-sm">Cadastre um novo membro à igreja.</p>
+
     <h2 class="text-xl font-semibold text-white">Dados pessoais</h2>
     <div class="grid md:grid-cols-2 gap-4">
         <div>
@@ -30,8 +33,7 @@
                    placeholder="(99) 9 9999-9999"
                    class="@Classes.InputCadastroMembro"
                    value="@_telefoneMascara"
-                   @oninput="@OnTelefoneInput"
-            />
+                   @oninput="@OnTelefoneInput"/>
         </div>
         <div>
             <label class="block text-sm font-medium text-zinc-300">Data de nascimento:</label>
@@ -109,8 +111,7 @@
                    placeholder="99999-999"
                    class="@Classes.InputCadastroMembro"
                    value="@_cepMascara"
-                   @oninput="@(e => OnCepInput(e))"
-            />
+                   @oninput="@(e => OnCepInput(e))"/>
         </div>
         <div>
             <label class="block text-sm font-medium text-zinc-300">Estado:</label>
@@ -204,8 +205,7 @@
     <Modal @ref="_modalCepErro"
            Title="CEP não encontrado"
            Message="Não encontramos esse CEP, por favor, verifique ou escreva os dados normalmente."
-           IsError="false" OnClose="CloseCepModal"
-    />
+           IsError="false" OnClose="CloseCepModal"/>
 
     <Modal @ref="_modalCadastroMembro"
            Title="Membro cadastrado com sucesso"

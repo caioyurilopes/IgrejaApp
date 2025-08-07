@@ -2,6 +2,7 @@
 @layout MainLayout
 
 @inject IMembrosService MembrosService
+@inject NavigationManager Navigation
 
 <div class="max-w-5xl mx-auto p-4 space-y-6 animate-slide-up">
     <div class="flex justify-between items-center">
@@ -27,15 +28,21 @@
         <div class="space-y-4">
             @foreach (var membro in _membrosFiltrados)
             {
-                <div class="bg-zinc-800 rounded-xl p-4 shadow-md flex justify-between items-center">
+                <div
+                    class="bg-zinc-800 rounded-xl p-4 shadow-md flex justify-between items-center cursor-pointer hover:bg-zinc-700 transition"
+                    @onclick="@(() => VerDetalhes(membro.Id.ToString()))">
                     <div>
                         <p class="text-lg font-semibold text-white">@membro.NomeCompleto</p>
                         <p class="text-sm text-zinc-400">@membro.EstadoCivil.ToDisplay()</p>
                         <p class="text-sm text-zinc-400">@CelularFormatter.AplicarMascara(membro.Telefone)</p>
                     </div>
-                    <button class="text-yellow-400 text-sm hover:underline"
-                            @onclick="@(() => VerDetalhes(membro.Id.ToString()))">
-                        Ver detalhes
+                    <button class="text-yellow-400 hover:text-yellow-300 p-2 rounded-full md:text-sm"
+                            @onclick="@(() => VerDetalhes(membro.Id.ToString()))"
+                            aria-label="Ver detalhes">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-4 md:w-4" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
                     </button>
                 </div>
             }
@@ -70,7 +77,7 @@
 
     private void VerDetalhes(string membroId)
     {
-        Console.WriteLine($"Ver detalhes do membro: {membroId}");
+        Navigation.NavigateTo($"/secretaria/membros/visualizar/{membroId}");
     }
 
     private string FiltroNome

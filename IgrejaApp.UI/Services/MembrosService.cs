@@ -26,6 +26,12 @@ public class MembrosService : ServiceBase, IMembrosService
         return await GetAsync<List<MembrosResponse>>(_url);
     }
 
+    public async Task<VisualizarMembroResponse?> GetByIdAsync(int id)
+    {
+        string url = $"{_url}/{id}";
+        return await GetAsync<VisualizarMembroResponse>(url);
+    }
+
     public async Task CadastrarMembroAsync(CadastrarMembroRequest request)
     {
         await PostAsync(_url, request);

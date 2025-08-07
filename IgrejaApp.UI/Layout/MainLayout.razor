@@ -4,7 +4,7 @@
 <div class="flex flex-col min-h-screen bg-zinc-900 text-white">
     <!-- Header -->
     <header class="sticky top-0 z-20 bg-zinc-950 shadow-md transition-all duration-300 px-4 py-3 flex items-center justify-between">
-        @if (!_isHomePage)
+        @if (!IsHomePage)
         {
             <button class="text-white" @onclick="Voltar">
                 <span class="material-icons">arrow_back</span>
@@ -23,11 +23,6 @@
     </header>
 
     <main class="flex-1 overflow-y-auto px-4 py-2">
-        @if (!_isHomePage)
-        {
-            <h1 class="text-xl font-semibold mb-4">@PageTitle</h1>
-        }
-
         <div class="animate-fade-in" @key="Navigation.Uri">
             @Body
         </div>
@@ -46,16 +41,7 @@
 </div>
 
 @code {
-    private bool _isHomePage => Navigation.Uri.EndsWith("/home", StringComparison.OrdinalIgnoreCase);
-    private string PageTitle => GetPageTitle();
-    
-    private string GetPageTitle()
-    {
-        var uri = Navigation.Uri.ToLowerInvariant();
-        if (uri.Contains("/secretaria/membros/cadastrar")) return "Cadastrar novo membro";
-        if (uri.Contains("/secretaria/membros/consultar")) return "Consultar membros";
-        return "Página";
-    }
+    private bool IsHomePage => Navigation.Uri.EndsWith("/home", StringComparison.OrdinalIgnoreCase);
 
     private void Voltar()
     {

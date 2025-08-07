@@ -8,6 +8,8 @@ public abstract class Classes
     public const string BtnLogin =
         "flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 md:text-lg font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600";
 
+    public const string CardHome = "bg-zinc-800 rounded-xl p-4 flex flex-col items-center hover:bg-zinc-700 transition";
+
     public const string InputCadastroMembro =
         "w-full p-2 rounded bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-yellow-500";
 }

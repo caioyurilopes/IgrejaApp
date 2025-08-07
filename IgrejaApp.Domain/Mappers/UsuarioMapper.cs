@@ -1,4 +1,6 @@
 ﻿using IgrejaApp.Domain.DTOs.Requests.Secretaria.Membros;
+using IgrejaApp.Domain.DTOs.Responses;
+using IgrejaApp.Domain.DTOs.Responses.Secretaria.Membros;
 using IgrejaApp.Domain.Entities;
 
 namespace IgrejaApp.Domain.Mappers;
@@ -40,6 +42,59 @@ public static class UsuarioMapper
                     Igreja = request.IgrejaBatismo ?? string.Empty,
                     PastorId = request.PastorBatismoId,
                     PastorNomeManual = request.PastorBatismoNomeManual
+                }
+                : null
+        };
+    }
+
+    public static VisualizarMembroResponse ToResponse(this Usuario usuario)
+    {
+        return new VisualizarMembroResponse
+        {
+            Id = usuario.Id,
+            NomeCompleto = usuario.NomeCompleto,
+            Cpf = usuario.Cpf,
+            Cep = usuario.Cep,
+            Logradouro = usuario.Logradouro,
+            Complemento = usuario.Complemento,
+            Bairro = usuario.Bairro,
+            Uf = usuario.Uf,
+            Estado = usuario.Estado,
+            Numero = usuario.Numero,
+            Telefone = usuario.Telefone,
+            DataNascimento = usuario.DataNascimento,
+            Naturalidade = usuario.Naturalidade,
+            Genero = usuario.Genero,
+            EstadoCivil = usuario.EstadoCivil,
+            TipoUsuario = usuario.TipoUsuario,
+            NomePai = usuario.NomePai,
+            NomeMae = usuario.NomeMae,
+
+            ConjugeId = usuario.ConjugeId,
+            Conjuge = usuario.Conjuge is not null
+                ? new ConjugeResponse
+                {
+                    Id = usuario.Conjuge.Id,
+                    NomeCompleto = usuario.Conjuge.NomeCompleto,
+                    Telefone = usuario.Conjuge.Telefone
+                }
+                : null,
+
+            Batismo = usuario.Batismo is not null
+                ? new BatismoResponse
+                {
+                    Id = usuario.Batismo.Id,
+                    Data = usuario.Batismo.Data,
+                    Igreja = usuario.Batismo.Igreja,
+                    PastorId = usuario.Batismo.PastorId,
+                    PastorNomeManual = usuario.Batismo.PastorNomeManual,
+                    Pastor = usuario.Batismo.Pastor is not null
+                        ? new PastorResponse
+                        {
+                            Id = usuario.Batismo.Pastor.Id,
+                            NomeCompleto = usuario.Batismo.Pastor.NomeCompleto
+                        }
+                        : null
                 }
                 : null
         };

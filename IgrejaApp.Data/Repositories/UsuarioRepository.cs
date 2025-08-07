@@ -10,6 +10,15 @@ namespace IgrejaApp.Data.Repositories;
 
 public class UsuarioRepository(AppDbContext context) : IUsuarioRepository
 {
+    public async Task<Usuario?> GetByIdAsync(int id)
+    {
+        return await context.Usuarios
+            .Include(u => u.Conjuge)
+            .Include(u => u.Batismo)
+            .ThenInclude(b => b!.Pastor)
+            .FirstOrDefaultAsync(u => u.Id == id);
+    }
+
     public async Task<Usuario?> GetByCelularAsync(string celular)
     {
         return await context.Usuarios.FirstOrDefaultAsync(u => u.Celular == celular);
