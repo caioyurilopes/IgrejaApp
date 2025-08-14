@@ -11,7 +11,7 @@
         <h2 class="text-lg font-semibold text-yellow-400">Conta</h2>
         <div class="grid md:grid-cols-2 gap-4">
             <div class="bg-zinc-800 rounded-xl p-4 shadow hover:shadow-lg transition cursor-pointer"
-                 @onclick="AbrirAlterarSenha">
+                 @onclick="@(() => AbrirAviso("Alterar senha"))">
                 <p class="text-white font-medium">Alterar senha</p>
                 <p class="text-sm text-zinc-400">Mude a senha de acesso ao sistema</p>
             </div>
@@ -26,25 +26,28 @@
                 <p class="text-white font-medium">Versão atual</p>
                 <p class="text-sm text-zinc-400">v1.0.0</p>
             </div>
-            <div class="bg-zinc-800 rounded-xl p-4 shadow hover:shadow-lg transition cursor-pointer">
+            <div class="bg-zinc-800 rounded-xl p-4 shadow hover:shadow-lg transition cursor-pointer"
+                 @onclick="@(() => AbrirAviso("Relatar problema"))">
                 <p class="text-white font-medium">Relatar problema</p>
                 <p class="text-sm text-zinc-400">Nos avise se algo estiver errado</p>
             </div>
         </div>
     </div>
 
-    <Modal @ref="_modalSenha" Title="Alterar senha"
+    <Modal @ref="_modalAviso" Title="@_title"
            Message="Função ainda será implementada. Em breve você poderá trocar sua senha por aqui."
            IsError="false" OnClose="FecharModalSenha"/>
 </div>
 
 @code {
-    private Modal? _modalSenha;
+    private Modal? _modalAviso;
+    private string _title = string.Empty;
 
-    private async Task AbrirAlterarSenha()
+    private async Task AbrirAviso(string title)
     {
-        if (_modalSenha is not null)
-            await _modalSenha.SetShowAsync(true);
+        _title = title;
+        if (_modalAviso is not null)
+            await _modalAviso.SetShowAsync(true);
     }
 
     private Task FecharModalSenha()

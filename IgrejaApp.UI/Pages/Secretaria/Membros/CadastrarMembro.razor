@@ -77,25 +77,33 @@
         <h2 class="text-xl font-semibold text-white pt-6">Cônjuge</h2>
         <div class="grid md:grid-cols-2 gap-4">
             <div>
-                <label class="block text-sm font-medium text-zinc-300">Selecionar membro existente (opcional):</label>
-                <InputSelect class="@Classes.InputCadastroMembro" @bind-Value="_usuario.ConjugeId">
-                    <option value=""></option>
-                    @if (_membros != null)
-                    {
-                        foreach (var membro in _membros)
+                <label class="block text-sm font-medium text-zinc-300">Selecione um cônjuge:</label>
+                <div class="flex items-center gap-2 mb-1">
+                    <label class="text-sm text-zinc-300">Informar manualmente</label>
+                    <CheckBox @bind-Value="_informarConjuge"/>
+                </div>
+
+                @if (!_informarConjuge)
+                {
+                    <InputSelect class="@Classes.InputCadastroMembro" @bind-Value="_usuario.ConjugeId">
+                        <option value="">Selecione um cônjuge</option>
+                        @if (_membros is not null)
                         {
-                            <option value="@membro.Id">@membro.Nome</option>
+                            foreach (var membro in _membros)
+                            {
+                                <option value="@membro.Id">@membro.Nome</option>
+                            }
                         }
-                    }
-                </InputSelect>
+                    </InputSelect>
+                }
+                else
+                {
+                    <InputText class="@Classes.InputCadastroMembro" @bind-Value="_usuario.NomeConjuge" type="text"
+                               placeholder="Ex: Maria Silva"/>
+                }
             </div>
             <div>
-                <label class="block text-sm font-medium text-zinc-300">Nome do conjugê (manual):</label>
-                <InputText class="@Classes.InputCadastroMembro" @bind-Value="_usuario.NomeConjuge" type="text"
-                           placeholder="Ex: Maria Silva"/>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-zinc-300">Data de casamento:</label>
+                <label class="block text-sm font-medium text-zinc-300">Data do casamento:</label>
                 <InputDate class="@Classes.InputCadastroMembro" @bind-Value="_usuario.DataCasamento"/>
             </div>
         </div>
@@ -231,7 +239,7 @@
     private string _cepMascara = string.Empty;
     private string _cpfMascara = string.Empty;
     private bool _informarPastorBatismo;
-    private bool _informarPastorProfissao;
+    private bool _informarConjuge;
     private Modal? _modalCepErro;
     private Modal? _modalCadastroMembro;
     private List<NomesMembrosResponse>? _membros = new();
@@ -384,7 +392,7 @@
         _telefoneMascara = string.Empty;
         _cepMascara = string.Empty;
         _informarPastorBatismo = false;
-        _informarPastorProfissao = false;
+        _informarConjuge = false;
     }
 
 }
