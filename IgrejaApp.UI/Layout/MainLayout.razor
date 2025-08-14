@@ -1,52 +1,36 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager Navigation
+@inject IJSRuntime JS
 
-<HeadOutlet/>
-
-<div class="flex flex-col min-h-screen bg-zinc-900 text-white animate-fade-in">
-    <!-- Cabeçalho -->
-    <header class="flex items-center justify-between px-4 py-3 bg-zinc-950 shadow-md">
-        <div class="w-10">
-            @if (!IsHomePage)
-            {
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
-            }
-        </div>
+<div class="flex flex-col min-h-screen bg-zinc-900 text-white">
+    <!-- Header -->
+    <header
+        class="sticky top-0 z-20 bg-zinc-950 shadow-md transition-all duration-300 px-4 py-3 flex items-center justify-between">
+        @if (!IsHomePage)
+        {
+            <button class="text-white" @onclick="Voltar">
+                <span class="material-icons">arrow_back</span>
+            </button>
+        }
+        else
+        {
+            <div class="w-10"></div>
+        }
 
         <div class="flex-1 flex justify-center">
-            <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                 alt="Your Company"
+            <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt="IBVC"
                  class="h-10 w-auto"/>
         </div>
 
-        <div class="w-10 flex justify-end">
-            <button class="text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M21 21l-4.35-4.35m1.32-5.4A7 7 0 1110 3a7 7 0 017 7z"/>
-                </svg>
-            </button>
-        </div>
+        <div class="w-10"></div>
     </header>
 
     <main class="flex-1 overflow-y-auto px-4 py-2">
-        @if (!IsHomePage)
-        {
-            <h1 class="text-xl font-semibold mb-4">
-                <PageTitle/>
-            </h1>
-        }
-
         <div class="animate-fade-in" @key="Navigation.Uri">
             @Body
         </div>
     </main>
 
-    <!-- Rodapé fixo com navegação -->
     <footer class="bg-zinc-950 p-2 flex justify-around items-center text-xs border-t border-zinc-800">
         <NavLink href="/home" class="flex flex-col items-center" activeClass="text-yellow-400">
             <span class="material-icons text-lg">home</span>
@@ -60,15 +44,17 @@
 </div>
 
 @code {
+    private bool IsHomePage => Navigation.Uri.EndsWith("/home", StringComparison.OrdinalIgnoreCase);
 
-    private bool IsHomePage => Navigation.Uri.EndsWith("/home");
-    // private string PageTitle => GetPageTitle();
-    //
-    // private string GetPageTitle()
-    // {
-    //     var uri = Navigation.Uri.ToLower();
-    //     if (uri.Contains("/secretaria/membros/cadastrar")) return "Cadastrar novo membro";
-    //     if (uri.Contains("/secretaria/membros/consultar")) return "Consultar membros";
-    //     return "Página";
-    // }
+    private async Task Voltar()
+    {
+        try
+        {
+            await JS.InvokeVoidAsync("history.back");
+        }
+        catch
+        {
+            Navigation.NavigateTo("/home");
+        }
+    }
 }

@@ -1,0 +1,71 @@
+﻿@page "/secretaria/membros/visualizar/{Id:int}"
+@layout MainLayout
+
+@inject IMembrosService MembrosService
+@inject NavigationManager NavigationManager
+
+<h2 class="text-xl font-bold text-white">Detalhes do Membro</h2>
+
+@if (_membro == null)
+{
+    <p class="text-zinc-400">Carregando informações do membro...</p>
+}
+else
+{
+    <div class="bg-zinc-800 rounded-xl p-6 space-y-4 text-white">
+        <div>
+            <label class="font-semibold">Nome completo:</label>
+            <input class="bg-zinc-700 text-white p-2 rounded w-full"
+                   @bind="_membro.NomeCompleto" />
+        </div>
+
+        <div>
+            <label class="font-semibold">Telefone:</label>
+            <input class="bg-zinc-700 text-white p-2 rounded w-full"
+                   @bind="_membro.Telefone" />
+        </div>
+
+        <div>
+            <label class="font-semibold">Estado Civil:</label>
+            <input class="bg-zinc-700 text-white p-2 rounded w-full"
+                   @bind="_membro.EstadoCivil" />
+        </div>
+
+        <div class="flex gap-4 pt-4">
+            <button class="bg-yellow-500 text-black px-4 py-2 rounded"
+                    @onclick="Salvar">
+                Salvar
+            </button>
+
+            <button class="bg-gray-500 text-white px-4 py-2 rounded"
+                    @onclick="Voltar">
+                Voltar
+            </button>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private VisualizarMembroResponse? _membro;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _membro = await MembrosService.GetByIdAsync(Id);
+    }
+
+    private async Task Salvar()
+    {
+        // if (_membro is not null)
+        // {
+        //     await MembrosService.AtualizarAsync(_membro);
+        // }
+    }
+
+    private void Voltar()
+    {
+        NavigationManager.NavigateTo("/secretaria/membros/consultar");
+    }
+}
