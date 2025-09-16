@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace IgrejaApp.UI.Utils;
+﻿namespace IgrejaApp.UI.Utils;
 
 public class AppConfigurationService
 {

@@ -1,6 +1,4 @@
-﻿using IgrejaApp.Domain.Interfaces;
-
-namespace IgrejaApp.UI.Services;
+﻿namespace IgrejaApp.UI.Services;
 
 public class AuthenticationService(IStorageService storageService) : IAuthenticationService
 {
@@ -8,8 +6,21 @@ public class AuthenticationService(IStorageService storageService) : IAuthentica
     
     public async Task<bool> IsLoggedInAsync()
     {
-        var token = await _storageService.GetItemAsync<string>("token");
-        return !string.IsNullOrWhiteSpace(token);
+        try
+        {
+            var token = await _storageService.GetItemAsync<string>("token");
+            if (string.IsNullOrWhiteSpace(token))
+                return false;
+
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+
+            return jwtToken.ValidTo > DateTime.UtcNow;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     public async Task LogoutAsync()

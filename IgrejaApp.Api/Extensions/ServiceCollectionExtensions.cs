@@ -1,12 +1,4 @@
-﻿using System.Text;
-using IgrejaApp.Api.Services;
-using IgrejaApp.Api.Settings;
-using IgrejaApp.Data.Extensions;
-using IgrejaApp.Domain.Interfaces;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-
-namespace IgrejaApp.Api.Extensions;
+﻿namespace IgrejaApp.Api.Extensions;
 
 public static class ServiceCollectionExtensions
 {

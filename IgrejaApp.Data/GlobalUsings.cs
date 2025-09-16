@@ -1,0 +1,10 @@
+﻿global using IgrejaApp.Domain.Entities;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Design;
+global using Microsoft.Extensions.Configuration;
+global using IgrejaApp.Data.Context;
+global using IgrejaApp.Domain.Interfaces.Repositories;
+global using IgrejaApp.Data.Repositories;
+global using Microsoft.Extensions.DependencyInjection;
+global using IgrejaApp.Domain.DTOs.Enums;
+global using IgrejaApp.Domain.DTOs.Responses.Secretaria.Membros;

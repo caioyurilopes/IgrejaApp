@@ -1,10 +1,4 @@
-﻿using IgrejaApp.Domain.DTOs.Requests;
-using IgrejaApp.Domain.DTOs.Responses;
-using IgrejaApp.Domain.Interfaces;
-using IgrejaApp.UI.Utils;
-using Microsoft.Extensions.Options;
-
-namespace IgrejaApp.UI.Services;
+﻿namespace IgrejaApp.UI.Services;
 
 public class AuthService : ServiceBase, IAuthService
 {

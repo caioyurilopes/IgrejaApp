@@ -1,14 +1,4 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
-using IgrejaApp.Api.Settings;
-using IgrejaApp.Domain.DTOs.Responses;
-using IgrejaApp.Domain.Entities;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-
-namespace IgrejaApp.Api.Services;
+﻿namespace IgrejaApp.Api.Services;
 
 public class TokenService(IOptions<JwtSettings> jwtSettings)
 {

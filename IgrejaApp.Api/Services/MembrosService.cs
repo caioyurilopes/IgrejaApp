@@ -1,11 +1,4 @@
-﻿using IgrejaApp.Domain.DTOs.Requests.Secretaria.Membros;
-using IgrejaApp.Domain.DTOs.Responses.Secretaria.Membros;
-using IgrejaApp.Domain.Entities;
-using IgrejaApp.Domain.Interfaces;
-using IgrejaApp.Domain.Interfaces.Repositories;
-using IgrejaApp.Domain.Mappers;
-
-namespace IgrejaApp.Api.Services;
+﻿namespace IgrejaApp.Api.Services;
 
 public class MembrosService(IUsuarioRepository usuarioRepository) : IMembrosService
 {

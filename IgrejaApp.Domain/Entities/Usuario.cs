@@ -1,6 +1,4 @@
-﻿using IgrejaApp.Domain.DTOs.Enums;
-
-namespace IgrejaApp.Domain.Entities;
+﻿namespace IgrejaApp.Domain.Entities;
 
 public class Usuario
 {

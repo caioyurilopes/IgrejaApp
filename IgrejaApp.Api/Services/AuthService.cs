@@ -1,10 +1,4 @@
-﻿using IgrejaApp.Domain.DTOs.Requests;
-using IgrejaApp.Domain.DTOs.Responses;
-using IgrejaApp.Domain.Entities;
-using IgrejaApp.Domain.Interfaces;
-using IgrejaApp.Domain.Interfaces.Repositories;
-
-namespace IgrejaApp.Api.Services;
+﻿namespace IgrejaApp.Api.Services;
 
 public class AuthService(IUsuarioRepository usuarioRepository, TokenService tokenService) : IAuthService
 {
