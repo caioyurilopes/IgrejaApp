@@ -1,11 +1,3 @@
-using Blazored.LocalStorage;
-using IgrejaApp.Domain.Interfaces;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using IgrejaApp.UI;
-using IgrejaApp.UI.Services;
-using IgrejaApp.UI.Utils;
-
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
 builder.RootComponents.Add<App>("#app");

@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace IgrejaApp.UI.Utils.Formatters;
+﻿namespace IgrejaApp.UI.Utils.Formatters;
 
 public static class CelularFormatter
 {

@@ -1,7 +1,4 @@
-﻿using IgrejaApp.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-
-namespace IgrejaApp.Data.Context;
+﻿namespace IgrejaApp.Data.Context;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {

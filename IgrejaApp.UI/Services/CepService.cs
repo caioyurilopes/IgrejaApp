@@ -1,9 +1,4 @@
-﻿using IgrejaApp.Domain.DTOs.Responses;
-using IgrejaApp.Domain.Interfaces;
-using IgrejaApp.UI.Utils;
-using Microsoft.Extensions.Options;
-
-namespace IgrejaApp.UI.Services;
+﻿namespace IgrejaApp.UI.Services;
 
 public class CepService : ServiceBase, ICepService
 {

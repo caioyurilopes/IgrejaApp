@@ -1,0 +1,17 @@
+﻿global using IgrejaApp.Domain.Interfaces;
+global using Microsoft.AspNetCore.Components;
+global using IgrejaApp.Domain.DTOs.Requests;
+global using IgrejaApp.Domain.DTOs.Responses;
+global using IgrejaApp.UI.Utils;
+global using Microsoft.Extensions.Options;
+global using IgrejaApp.Domain.DTOs.Requests.Secretaria.Membros;
+global using IgrejaApp.Domain.DTOs.Responses.Secretaria.Membros;
+global using System.Text;
+global using System.Text.Json;
+global using Blazored.LocalStorage;
+global using System.Text.RegularExpressions;
+global using Microsoft.AspNetCore.Components.Web;
+global using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+global using IgrejaApp.UI;
+global using IgrejaApp.UI.Services;
+global using System.IdentityModel.Tokens.Jwt;

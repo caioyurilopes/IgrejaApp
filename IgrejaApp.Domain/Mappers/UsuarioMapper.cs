@@ -1,9 +1,4 @@
-﻿using IgrejaApp.Domain.DTOs.Requests.Secretaria.Membros;
-using IgrejaApp.Domain.DTOs.Responses;
-using IgrejaApp.Domain.DTOs.Responses.Secretaria.Membros;
-using IgrejaApp.Domain.Entities;
-
-namespace IgrejaApp.Domain.Mappers;
+﻿namespace IgrejaApp.Domain.Mappers;
 
 public static class UsuarioMapper
 {

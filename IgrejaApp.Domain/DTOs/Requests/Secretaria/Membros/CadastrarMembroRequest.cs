@@ -1,6 +1,4 @@
-﻿using IgrejaApp.Domain.DTOs.Enums;
-
-namespace IgrejaApp.Domain.DTOs.Requests.Secretaria.Membros;
+﻿namespace IgrejaApp.Domain.DTOs.Requests.Secretaria.Membros;
 
 public class CadastrarMembroRequest
 {

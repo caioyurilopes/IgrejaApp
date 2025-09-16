@@ -1,7 +1,4 @@
-﻿using IgrejaApp.Domain.DTOs.Responses;
-using IgrejaApp.Domain.Interfaces;
-
-namespace IgrejaApp.Api.Services;
+﻿namespace IgrejaApp.Api.Services;
 
 public class CepService : ICepService
 {

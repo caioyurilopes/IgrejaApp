@@ -1,7 +1,4 @@
-﻿using Blazored.LocalStorage;
-using IgrejaApp.Domain.Interfaces;
-
-namespace IgrejaApp.UI.Services;
+﻿namespace IgrejaApp.UI.Services;
 
 public class StorageService(ILocalStorageService localStorage) : IStorageService
 {

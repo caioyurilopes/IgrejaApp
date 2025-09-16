@@ -1,11 +1,4 @@
-﻿using IgrejaApp.Data.Context;
-using IgrejaApp.Domain.Interfaces.Repositories;
-using IgrejaApp.Data.Repositories;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace IgrejaApp.Data.Extensions;
+﻿namespace IgrejaApp.Data.Extensions;
 
 public static class ServiceCollectionExtensions
 {

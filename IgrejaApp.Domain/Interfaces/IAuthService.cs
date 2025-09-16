@@ -1,7 +1,4 @@
-﻿using IgrejaApp.Domain.DTOs.Requests;
-using IgrejaApp.Domain.DTOs.Responses;
-
-namespace IgrejaApp.Domain.Interfaces;
+﻿namespace IgrejaApp.Domain.Interfaces;
 
 public interface IAuthService
 {

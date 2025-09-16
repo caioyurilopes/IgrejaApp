@@ -1,8 +1,4 @@
-﻿using IgrejaApp.Domain.DTOs.Responses;
-using IgrejaApp.Domain.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-
-namespace IgrejaApp.Api.Endpoints;
+﻿namespace IgrejaApp.Api.Endpoints;
 
 public static class CepEndpoints
 {

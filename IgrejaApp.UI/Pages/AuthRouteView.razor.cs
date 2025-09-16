@@ -1,7 +1,4 @@
-﻿using IgrejaApp.Domain.Interfaces;
-using Microsoft.AspNetCore.Components;
-
-namespace IgrejaApp.UI.Pages;
+﻿namespace IgrejaApp.UI.Pages;
 
 public partial class AuthRouteView : ComponentBase, IDisposable
 {
@@ -18,22 +15,34 @@ public partial class AuthRouteView : ComponentBase, IDisposable
 
     private static readonly string[] PublicRoutes = new[]
     {
-        "/"
+        "/",
+        "/home",
+        "/configuracoes",
+        "/secretaria/membros/consultar",
+        "/secretaria/membros/visualizar",
+        "/secretaria/membros/cadastrar"
     };
 
     protected override async Task OnInitializedAsync()
     {
-        string currentUrl = "/" + Navigation.ToBaseRelativePath(Navigation.Uri).ToLower();
+        await CheckAuthenticationAsync();
+    }
 
-        if (PublicRoutes.Contains(currentUrl))
-        {
-            _isAuthenticated = true;
-        }
+    protected override async Task OnParametersSetAsync()
+    {
+        await CheckAuthenticationAsync();
+    }
+
+    private async Task CheckAuthenticationAsync()
+    {
+        string currentUrl = Navigation.ToBaseRelativePath(Navigation.Uri).ToLower();
+        if (string.IsNullOrWhiteSpace(currentUrl))
+            currentUrl = "/";
         else
-        {
-            _isAuthenticated = await AuthService.IsLoggedInAsync();
-        }
+            currentUrl = "/" + currentUrl;
 
+        _isAuthenticated = PublicRoutes.Any(r => currentUrl.StartsWith(r, StringComparison.OrdinalIgnoreCase))
+            || await AuthService.IsLoggedInAsync();
         _checkingAuth = false;
 
         if (!_isAuthenticated && !PublicRoutes.Contains(currentUrl))
@@ -44,6 +53,9 @@ public partial class AuthRouteView : ComponentBase, IDisposable
 
     private void StartCountdown()
     {
+        _timer?.Dispose();
+        _seconds = 10;
+
         _timer = new Timer(async _ =>
         {
             if (_seconds <= 1)

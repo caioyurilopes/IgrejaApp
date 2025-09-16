@@ -1,7 +1,4 @@
-﻿using IgrejaApp.Api.Endpoints;
-using IgrejaApp.Api.Filters;
-
-namespace IgrejaApp.Api.Extensions;
+﻿namespace IgrejaApp.Api.Extensions;
 
 public static class AppExtensions
 {

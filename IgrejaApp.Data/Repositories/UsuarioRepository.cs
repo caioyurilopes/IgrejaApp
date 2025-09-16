@@ -1,12 +1,4 @@
-﻿using IgrejaApp.Data.Context;
-using IgrejaApp.Domain.DTOs.Enums;
-using IgrejaApp.Domain.Entities;
-using IgrejaApp.Domain.Interfaces.Repositories;
-using IgrejaApp.Domain.DTOs.Responses;
-using IgrejaApp.Domain.DTOs.Responses.Secretaria.Membros;
-using Microsoft.EntityFrameworkCore;
-
-namespace IgrejaApp.Data.Repositories;
+﻿namespace IgrejaApp.Data.Repositories;
 
 public class UsuarioRepository(AppDbContext context) : IUsuarioRepository
 {
